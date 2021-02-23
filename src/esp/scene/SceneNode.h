@@ -13,6 +13,7 @@
 
 #include "esp/core/esp.h"
 #include "esp/gfx/magnum.h"
+#include "esp/sensor/Sensor.h"
 
 // This class provides routines to:
 // set and get local rigid body transformation of the current node w.r.t. the
@@ -101,6 +102,14 @@ class SceneNode : public MagnumObject {
   //! set frustum plane in last frame that culls this node
   void setFrustumPlaneIndex(int index) { frustumPlaneIndex = index; };
 
+  esp::sensor::SensorSuite& getNodeSensorSuite() {
+    return nodeSensorSuite->get();
+  }
+
+  esp::sensor::SensorSuite& getSubtreeSensorSuite() {
+    return subtreeSensorSuite->get();
+  }
+
  protected:
   // DO not make the following constructor public!
   // it can ONLY be called from SceneGraph class to initialize the scene graph
@@ -132,6 +141,9 @@ class SceneNode : public MagnumObject {
 
   //! the frustum plane in last frame that culls this node
   int frustumPlaneIndex = 0;
+
+  esp::sensor::SensorSuite* nodeSensorSuite = nullptr;
+  esp::sensor::SensorSuite* subtreeSensorSuite = nullptr;
 };
 
 // Traversal Helpers
