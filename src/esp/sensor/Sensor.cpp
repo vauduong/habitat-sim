@@ -18,6 +18,13 @@ Sensor::Sensor(scene::SceneNode& node, SensorSpec::ptr spec)
     LOG(ERROR) << "Cannot initialize sensor. The specification is null.";
   }
   ASSERT(spec_ != nullptr);
+  node.getNodeSensorSuite()->add(this);
+  // Traverse up to root node and add sensor to every subtreeSensorSuite
+  esp::scene::SceneNode parent = node.parent();
+  while (parent != root) {
+    parent.getNodeSensorSuite()->add(this);
+    parent = parent.parent();
+  }
 
   setTransformationFromSpec();
 }
@@ -52,6 +59,7 @@ Sensor::ptr SensorSuite::get(const std::string& uuid) const {
 
 void SensorSuite::clear() {
   sensors_.clear();
+  // Traverse up to root node and delete all sensors at each subtree sensorsuite
 }
 
 bool operator==(const SensorSpec& a, const SensorSpec& b) {

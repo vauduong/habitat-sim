@@ -102,12 +102,10 @@ class SceneNode : public MagnumObject {
   //! set frustum plane in last frame that culls this node
   void setFrustumPlaneIndex(int index) { frustumPlaneIndex = index; };
 
-  esp::sensor::SensorSuite& getNodeSensorSuite() {
-    return nodeSensorSuite->get();
-  }
+  esp::sensor::SensorSuite& getNodeSensorSuite() { return *nodeSensorSuite_; }
 
   esp::sensor::SensorSuite& getSubtreeSensorSuite() {
-    return subtreeSensorSuite->get();
+    return *subtreeSensorSuite_;
   }
 
  protected:
@@ -142,8 +140,8 @@ class SceneNode : public MagnumObject {
   //! the frustum plane in last frame that culls this node
   int frustumPlaneIndex = 0;
 
-  esp::sensor::SensorSuite* nodeSensorSuite = nullptr;
-  esp::sensor::SensorSuite* subtreeSensorSuite = nullptr;
+  esp::sensor::SensorSuite* nodeSensorSuite_;
+  esp::sensor::SensorSuite* subtreeSensorSuite_;
 };
 
 // Traversal Helpers

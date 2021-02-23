@@ -4,18 +4,21 @@
 
 #include "SceneNode.h"
 #include "esp/geo/geo.h"
+#include "esp/sensor/Sensor.h"
 
 namespace Mn = Magnum;
 
 namespace esp {
 namespace scene {
 
-SceneNode::SceneNode(SceneNode& parent) {
+SceneNode::SceneNode(SceneNode& parent)
+    : nodeSensorSuite_(), subtreeSensorSuite_() {
   setParent(&parent);
   setId(parent.getId());
 }
 
-SceneNode::SceneNode(MagnumScene& parentNode) {
+SceneNode::SceneNode(MagnumScene& parentNode)
+    : nodeSensorSuite_(), subtreeSensorSuite_() {
   setParent(&parentNode);
 }
 

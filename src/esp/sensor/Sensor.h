@@ -88,16 +88,16 @@ class Sensor : public Magnum::SceneGraph::AbstractFeature3D {
   ~Sensor() override { LOG(INFO) << "Deconstructing Sensor"; }
 
   // Get the scene node being attached to.
-  scene::SceneNode& node() { return object(); }
-  const scene::SceneNode& node() const { return object(); }
+  esp::scene::SceneNode& node() { return object(); }
+  const esp::scene::SceneNode& node() const { return object(); }
 
   // Overloads to avoid confusion
-  scene::SceneNode& object() {
-    return static_cast<scene::SceneNode&>(
+  esp::scene::SceneNode& object() {
+    return static_cast<esp::scene::SceneNode&>(
         Magnum::SceneGraph::AbstractFeature3D::object());
   }
-  const scene::SceneNode& object() const {
-    return static_cast<const scene::SceneNode&>(
+  const esp::scene::SceneNode& object() const {
+    return static_cast<const esp::scene::SceneNode&>(
         Magnum::SceneGraph::AbstractFeature3D::object());
   }
 
